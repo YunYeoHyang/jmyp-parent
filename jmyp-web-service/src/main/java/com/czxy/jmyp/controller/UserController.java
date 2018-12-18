@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +47,8 @@ public class UserController {
     private ResponseEntity<BaseResult> sendSms(@RequestBody User user){
 
         // 生成四位数验证码
-        String random = RandomStringUtils.random(4);
+        String random = RandomStringUtils.randomNumeric(4);
+        System.out.println(random);
 
         // 存入redis
         redisTemplate.opsForValue().set( user.getMobile() , random , 1 , TimeUnit.HOURS);

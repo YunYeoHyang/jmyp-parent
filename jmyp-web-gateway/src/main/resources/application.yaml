@@ -43,3 +43,8 @@ sc:
       - /regist
       - /sms
       - /login
+      - /categorys
+      - /news
+      - /floors
+      - /brands
+      - /specifications
