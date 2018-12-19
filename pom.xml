@@ -16,6 +16,7 @@
         <module>jmyp-web-pojo</module>
         <module>jmyp-web-search</module>
         <module>jmyp-web-service</module>
+        <module>elasticsearch-demo</module>
     </modules>
 
     <parent>

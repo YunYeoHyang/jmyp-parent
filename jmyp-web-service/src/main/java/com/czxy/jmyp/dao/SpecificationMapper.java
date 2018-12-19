@@ -15,8 +15,8 @@ public interface SpecificationMapper extends Mapper<Specification> {
     @Select("select * from tb_specification where category_id = #{categoryId}")
     @Results({
             @Result(id=true,column="id",property="id"),
-            @Result(column="specName",property="spec_name"),
-            @Result(column="categoryId",property="category_id"),
+            @Result(column="spec_name",property="specName"),
+            @Result(column="category_id",property="categoryId"),
             @Result(column="id",property="options",
                     many=@Many(
                             select="com.czxy.jmyp.dao.SpecificationOptionMapper.findSpecificationOptionBySpecificationId"
