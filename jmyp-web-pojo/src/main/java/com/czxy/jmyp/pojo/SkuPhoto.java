@@ -1,26 +1,22 @@
 package com.czxy.jmyp.pojo;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Table(name = "tb_sku_photo")
+@Data
 public class SkuPhoto {
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
+  //外键
+  @Column(name="sku_id")
+  private Integer skuId;
+  @Transient
+  private Sku sku;
 
-  @Column(name = "sku_id")
-  private long skuId;
-
-  @Column(name = "url")
+  @Column(name="url")
   private String url;
 }

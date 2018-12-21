@@ -6,50 +6,53 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@ToString
 @Table(name = "tb_sku_comment")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString
 public class SkuComment {
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
+  @Column(name="created_at")
+  private Timestamp createdAt;
+  @Column(name="updated_at")
+  private Timestamp updatedAt;
 
-  @Column(name = "created_at")
-  private Date createdAt;
+  @Column(name="user_id")
+  private Integer userId;
+  @Transient
+  private User user;
 
-  @Column(name = "updated_at")
-  private Date updatedAt;
+  @Column(name="spu_id")
+  private Integer spuId;
+  @Transient
+  private Spu spu;
 
-  @Column(name = "user_id")
-  private long userId;
+  @Column(name="sku_id")
+  private Integer skuId;
+  @Transient
+  private Spu sku;
 
-  @Column(name = "spu_id")
-  private long spuId;
 
-  @Column(name = "sku_id")
-  private long skuId;
-
-  @Column(name = "ratio")
+  @Column(name="ratio")
   private String ratio;
 
-  @Column(name = "spec_list")
+  @Column(name="spec_list")
   private String specList;
 
-  @Column(name = "content")
+
+  @Column(name="content")
   private String content;
+  @Column(name="star")
+  private Integer star;
+  @Column(name="isshow")
+  private String isShow;
 
-  @Column(name = "star")
-  private long star;
-
-  @Column(name = "isshow")
-  private long isshow;
-
-  @Column(name = "sn")
+  @Column(name="sn")
   private String sn;
-
 }

@@ -21,6 +21,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -50,6 +51,15 @@ public class TestEs {
     public void index(){
         Item item = new Item(1L, "小米手机7", "手机", "小米", 3499.00, "http://image.baidu.com/13123.jpg");
         itemRepository.save(item);
+    }
+
+    @Test
+    public void addList(){
+        List<Item> list = new ArrayList<>();
+        list.add(new Item(4L, "Apple", "手机", "苹果", 8999.00, "http://image.baidu.com/13123.jpg"));
+        list.add(new Item(5L, "SumSang", "手机", "三星", 4799.00, "http://image.baidu.com/13123.jpg"));
+        // 接收对象集合，实现批量新增
+        itemRepository.saveAll(list);
     }
 
     /**

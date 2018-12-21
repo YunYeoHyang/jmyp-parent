@@ -1,6 +1,7 @@
 package com.czxy.jmyp.dao;
 
 import com.czxy.jmyp.pojo.Brand;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -16,5 +17,4 @@ public interface BrandMapper extends Mapper<Brand> {
             @Result(property = "brandName",column = "brand_name")
     })
     List<Brand> findBrandsByCatId(Integer catid);
-
 }
