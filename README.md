@@ -10,6 +10,6 @@ this seconds pushing , add some function like showing brand , news. Created some
 # 2018.12.19 #
 this third time , update for new model -- elasticsearch_demo , for testing search service.
 
-# 2018.12.20 #
+# 2018.12.21 #
 the fourth pushing , Edit a model -- jmyp_web_search , create and init ElasticSearchRepository ,
 add Search - Service , add new function -- search product by any key.
