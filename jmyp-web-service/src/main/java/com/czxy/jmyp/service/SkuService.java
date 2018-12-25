@@ -1,16 +1,20 @@
 package com.czxy.jmyp.service;
 
 import com.alibaba.fastjson.JSON;
-import com.czxy.jmyp.dao.SkuCommentMapper;
-import com.czxy.jmyp.dao.SkuMapper;
+import com.czxy.jmyp.dao.*;
 import com.czxy.jmyp.pojo.Sku;
+import com.czxy.jmyp.pojo.SkuPhoto;
+import com.czxy.jmyp.pojo.Specification;
+import com.czxy.jmyp.pojo.Spu;
 import com.czxy.jmyp.vo.ESData;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.czxy.jmyp.vo.OneSkuResult;
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,7 +27,21 @@ public class SkuService {
     @Resource
     private SkuCommentMapper skuCommentMapper;
 
+    @Resource
+    private SpuMapper spuMapper;
+
+    @Resource
+    private CategoryMapper categoryMapper;
+
+    @Resource
+    private SkuPhotoMapper skuPhotoMapper;
+
+    @Resource
+    private SpecificationMapper specificationMapper;
+
+
     /**
+     *  初始化ElasticSearch数据库
      * @return
      */
     public List<ESData> findESData(){
@@ -82,4 +100,100 @@ public class SkuService {
         return esDataList;
     }
 
+    /**
+     * 商品详情页面
+     * @param skuid
+     * @return
+     */
+    public OneSkuResult findSkuById(Integer skuid){
+
+        /**
+         * 新建一个 OneSkuResult 对象
+         */
+        OneSkuResult skuResult = new OneSkuResult();
+
+        /**  1.
+         * 查找sku基本信息
+         */
+        Sku sku = skuMapper.selectByPrimaryKey(skuid);
+
+        /**  2.
+         * 根据sku查找spu信息
+         */
+        Spu spu = spuMapper.findSpuById(sku.getSpuId());
+
+        /**  3.
+         * 赋值
+         */
+        // skuId;
+        skuResult.setSkuid(sku.getId());
+        // spuid;
+        skuResult.setSpuid(sku.getSpuId());
+        // 商品名称
+        skuResult.setGoodsName(sku.getSkuName());
+        // 价格
+        skuResult.setPrice(sku.getPrice());
+        // 上架时间
+        skuResult.setOnSaleDate(spu.getOnSaleTime());
+        // 评价数
+        Integer comment_count = skuCommentMapper.findNumBySkuId(sku.getId());
+        skuResult.setCommentCount(comment_count);
+        // 评论级别
+        skuResult.setCommentLevel(skuCommentMapper.findAvgStarBySkuId(sku.getId()));
+        // 一级分类
+        skuResult.setCat1Info(categoryMapper.selectByPrimaryKey(spu.getCat1Id()));
+        // 二级分类
+        skuResult.setCat2Info(categoryMapper.selectByPrimaryKey(spu.getCat2Id()));
+        // 三级分类
+        skuResult.setCat3Info(categoryMapper.selectByPrimaryKey(spu.getCat3Id()));
+        // Map<String, String> logo;
+        Map<String,String> logo = new HashedMap();
+        logo.put("smlogo",spu.getLogo());
+        logo.put("biglogo",spu.getLogo());
+        logo.put("xbiglogo",spu.getLogo());
+        skuResult.setLogo(logo);
+        //  List<Map> phtotos;
+        List<SkuPhoto> skuPhotoList = skuPhotoMapper.findSpuPhotoBySpuId(sku.getSpuId());
+        List<Map> photos = new ArrayList<>();
+        for(SkuPhoto sp:skuPhotoList){
+            Map<String,String> map = new HashedMap();
+            map.put("smimg",sp.getUrl());
+            map.put("bigimg",sp.getUrl());
+            map.put("xbigimg",sp.getUrl());
+            photos.add(map);
+        }
+        skuResult.setPhtotos(photos);
+
+        // description;
+        skuResult.setDescription(spu.getDescription());
+        // aftersale;
+        skuResult.setAftersale(spu.getAftersale());
+        // stock;
+        skuResult.setStock(sku.getStock());
+        // List<SpecResult> spec_list; 根据分类查找规格和规格选项
+        List<Specification> spec_list = specificationMapper.findSpecificationByCategoryId(spu.getCat3Id());
+        skuResult.setSpecList(spec_list);
+        // //id_list:'规格ID:选项ID|规格ID:选项ID|...',
+        //  //id_txt:'规格名称:选项名称|规格名称:选项名称|...'
+        // Map<String, String> spec_info;
+        Map<String,String> spec_info = new HashMap<>();
+        spec_info.put("id_list",sku.getSpecInfoIdList());
+        spec_info.put("id_txt",sku.getSpecInfoIdTxt());
+        skuResult.setSpecInfo(spec_info);
+        // List<Map<String, String>> sku_list;
+        List<Sku> skuBySpuIdList = skuMapper.findSkuBySpuId(spu.getId());
+        List<Map<String, String>> sku_list = new ArrayList<>();
+        for(Sku s:skuBySpuIdList){
+            Map<String,String> map = new HashMap<>();
+            map.put("skuid",s.getId().toString());
+            map.put("id_list",sku.getSpecInfoIdList());
+            sku_list.add(map);
+        }
+        skuResult.setSkuList(sku_list);
+
+        /**  4.
+         * 返回结果
+         */
+        return skuResult;
+    }
 }

@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class SkuComment {
 
   @Id

@@ -3,7 +3,6 @@ package com.czxy.jmyp.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,7 +10,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class Sku {
 
   @Id

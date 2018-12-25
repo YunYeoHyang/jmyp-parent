@@ -4,8 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
 

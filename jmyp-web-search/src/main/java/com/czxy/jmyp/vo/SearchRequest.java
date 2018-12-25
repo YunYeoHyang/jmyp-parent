@@ -7,6 +7,7 @@ import java.util.Map;
 @Data
 public class SearchRequest {
     private String keyword;                 // 关键字搜索，预留
+
     private Integer cat_id;                  // 3 级类目
     private Integer brand_id;                // 品牌
     //    private List spec_list;

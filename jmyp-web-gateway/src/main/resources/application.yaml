@@ -51,3 +51,5 @@ sc:
       - /specifications
       - /esData
       - /search
+      - /goods
+      - /comments

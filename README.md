@@ -13,3 +13,7 @@ this third time , update for new model -- elasticsearch_demo , for testing searc
 # 2018.12.21 #
 the fourth pushing , Edit a model -- jmyp_web_search , create and init ElasticSearchRepository ,
 add Search - Service , add new function -- search product by any key.
+
+# 2018.12.25 #
+the fifth pushing , add new function -- we can see product's info , fix some bug like: pojo classes
+don't work. But also have a flew bugs , the product comments can not work , will fix on next update.

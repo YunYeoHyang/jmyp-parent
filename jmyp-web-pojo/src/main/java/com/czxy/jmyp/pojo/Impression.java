@@ -16,17 +16,17 @@ public class Impression {
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
 
   @Column(name = "title")
   private String title;
 
   @Column(name = "count")
-  private long count;
+  private Integer count;
 
   @Column(name = "spu_id")
-  private long spuId;
+  private Integer spuId;
 
   @Column(name = "sku_id")
-  private long skuId;
+  private Integer skuId;
 }
