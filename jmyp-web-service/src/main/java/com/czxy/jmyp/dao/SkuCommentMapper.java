@@ -1,8 +1,7 @@
 package com.czxy.jmyp.dao;
 
 import com.czxy.jmyp.pojo.SkuComment;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -32,5 +31,13 @@ public interface SkuCommentMapper extends Mapper<SkuComment> {
     Integer findNumBySpuId(Integer spuId);
 
     @Select("select * from tb_sku_comment where spu_id = #{spuId}")
+    @Results({
+            @Result(property = "createdAt" , column = "created_at"),
+            @Result(property = "updatedAt" , column = "updated_at"),
+            @Result(property = "userId" , column = "user_id"),
+            @Result(property = "skuId" , column = "sku_id"),
+            @Result(property = "specList" , column = "spec_list"),
+            @Result(property = "user" , one = @One(select = "com.czxy.jmyp.dao.UserMapper.selectByPrimaryKey"), column = "user_id"),
+    })
     List<SkuComment> findCommentsBySpuId(Integer spuId);
 }

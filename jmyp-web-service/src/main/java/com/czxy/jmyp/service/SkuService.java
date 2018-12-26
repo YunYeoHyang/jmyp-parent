@@ -170,17 +170,30 @@ public class SkuService {
         skuResult.setAftersale(spu.getAftersale());
         // stock;
         skuResult.setStock(sku.getStock());
-        // List<SpecResult> spec_list; 根据分类查找规格和规格选项
+
+        /**
+         * 规范信息 -- （已有） -- 查询分类3对应的所有的规范
+         * List<SpecResult> spec_list; 根据分类查找规格和规格选项
+         */
         List<Specification> spec_list = specificationMapper.findSpecificationByCategoryId(spu.getCat3Id());
         skuResult.setSpecList(spec_list);
-        // //id_list:'规格ID:选项ID|规格ID:选项ID|...',
-        //  //id_txt:'规格名称:选项名称|规格名称:选项名称|...'
-        // Map<String, String> spec_info;
+
+
+        /**
+         * 当前sku的规格详情
+         * id_list:'规格ID:选项ID|规格ID:选项ID|...',
+         * id_txt:'规格名称:选项名称|规格名称:选项名称|...'
+         * Map<String, String> spec_info;
+         */
         Map<String,String> spec_info = new HashMap<>();
         spec_info.put("id_list",sku.getSpecInfoIdList());
         spec_info.put("id_txt",sku.getSpecInfoIdTxt());
         skuResult.setSpecInfo(spec_info);
-        // List<Map<String, String>> sku_list;
+
+        /**
+         * 当前商品sku对应的spu下，所有的规格列表
+         * List<Map<String, String>> sku_list;
+         */
         List<Sku> skuBySpuIdList = skuMapper.findSkuBySpuId(spu.getId());
         List<Map<String, String>> sku_list = new ArrayList<>();
         for(Sku s:skuBySpuIdList){

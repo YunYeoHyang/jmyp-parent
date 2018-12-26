@@ -10,5 +10,4 @@ public class PageRequest {
     private Integer per_page;// 每页条数
     private String sort_by; // 排序字段
     private String sort_way; //排序方式  asc  升序   desc  降序
-
 }

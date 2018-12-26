@@ -17,3 +17,7 @@ add Search - Service , add new function -- search product by any key.
 # 2018.12.25 #
 the fifth pushing , add new function -- we can see product's info , fix some bug like: pojo classes
 don't work. But also have a flew bugs , the product comments can not work , will fix on next update.
+
+# 2018.12.26 #
+the sixth pushing , fix the last problem that the product comments can not work , but UserFace does't
+have in SHOP database . So in the future ,should add this field in SHOP. 

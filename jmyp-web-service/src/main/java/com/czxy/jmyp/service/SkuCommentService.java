@@ -36,29 +36,49 @@ public class SkuCommentService {
          */
         CommentResult commentResult = new CommentResult();
 
-        // 1、 List<Impression> impressions;
+        /**
+         * 1、印象
+         * List<Impression> impressions;
+        */
         List<Impression> impressionList = impressionMapper.findImpressionsBySpuid(spuid);
         commentResult.setImpressions(impressionList);
-        //2、 Map<String,Object> ratio;
-        Integer goodCount = skuCommentMapper.findCommentCountByRatio(spuid,0);// 好评
-        Integer commonCount = skuCommentMapper.findCommentCountByRatio(spuid,0);// 中评
-        Integer badCount = skuCommentMapper.findCommentCountByRatio(spuid,0);// 差评
-        Integer totalCount = skuCommentMapper.findCommentCountByRatio(spuid,0);//
+
+        /**
+         * 2、商品评论数量
+         * Map<String,Object> ratio;
+         */
+        // 好评
+        Integer goodCount = skuCommentMapper.findCommentCountByRatio(spuid,0);
+        // 中评
+        Integer commonCount = skuCommentMapper.findCommentCountByRatio(spuid,1);
+        // 差评
+        Integer badCount = skuCommentMapper.findCommentCountByRatio(spuid,2);
+        //总评
+        Integer totalCount = skuCommentMapper.findNumBySpuId(spuid);
 
         Map<String,Object> ratio = new HashMap<>();
-        Integer goods = (goodCount%totalCount)==0? goodCount*100/totalCount :  goodCount*100/totalCount+1;
-        ratio.put("goods",goods);
-        Integer common = (commonCount%totalCount)==0? commonCount*100/totalCount :  commonCount*100/totalCount+1;
-        ratio.put("common",common);
-        Integer bad = (badCount%totalCount)==0? badCount*100/totalCount :  badCount*100/totalCount+1;
-        ratio.put("bad",bad);
+
+        /**  String 工具
+         *  String.format("%.2f" , goodCount * 100.0 / totalCount);
+         */
+        if( totalCount > 0 ) {
+            ratio.put("goods", String.format("%.1f", goodCount * 100.0 / totalCount));
+            ratio.put("common", String.format("%.1f", commonCount * 100.0 / totalCount));
+            ratio.put("bad", String.format("%.1f", badCount * 100.0 / totalCount));
+        } else {
+            // 零为除数优化
+            ratio.put("goods", 0);
+            ratio.put("common", 0);
+            ratio.put("bad", 0);
+        }
+
         commentResult.setRatio(ratio);
+        commentResult.setComment_count(totalCount);
 
-        // Integer comment_count;
-        Integer comment_count = skuCommentMapper.findNumBySpuId(spuid);
-        commentResult.setComment_count(comment_count);
-
-        // List<SkuComment> comments;
+        /**
+         * 评论详情
+         * List<SkuComment> comments;
+         */
         List<SkuComment> comments = skuCommentMapper.findCommentsBySpuId(spuid);
         commentResult.setComments(comments);
 
