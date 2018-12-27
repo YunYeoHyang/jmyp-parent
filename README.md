@@ -20,4 +20,9 @@ don't work. But also have a flew bugs , the product comments can not work , will
 
 # 2018.12.26 #
 the sixth pushing , fix the last problem that the product comments can not work , but UserFace does't
-have in SHOP database . So in the future ,should add this field in SHOP. 
+have in SHOP database . So in the future ,should add this field in SHOP.
+
+ # 2018.12.27 #
+ the seventh puthing , fix a little bug , that the 'token' field add "" , add a new model -- jmyp_web_cart ,
+ add some new function -- searching cart after login in and adding cart. With a bug -- edit product's count.
+ fix on next update.

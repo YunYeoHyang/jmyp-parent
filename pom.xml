@@ -17,6 +17,7 @@
         <module>jmyp-web-search</module>
         <module>jmyp-web-service</module>
         <module>elasticsearch-demo</module>
+        <module>jmyp-web-cart</module>
     </modules>
 
     <parent>

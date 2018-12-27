@@ -9,6 +9,7 @@ import java.util.Map;
 public class BaseResult {
 
     private Map<String,Object> data = new HashMap<>();
+
     public BaseResult(Integer errno, String errmsg) {
         data.put("errno" , errno);
         data.put("errmsg" , errmsg);

@@ -73,6 +73,7 @@ public class LoginFilter extends ZuulFilter {
         // 校验
         try {
             // 校验通过什么都不做，即放行
+            System.out.println(jwtProp.getPublicKey());
             JwtUtils.getInfoFromToken(token, jwtProp.getPublicKey());
         } catch (Exception e) {
             // 校验出现异常，返回403

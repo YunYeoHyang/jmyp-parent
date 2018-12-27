@@ -9,6 +9,7 @@
         <module name="elasticsearch-demo" />
         <module name="jmyp-web-auth-common" />
         <module name="jmyp-web-auth-service" />
+        <module name="jmyp-web-cart" />
         <module name="jmyp-web-common" />
         <module name="jmyp-web-eureka-service" />
         <module name="jmyp-web-gateway" />
@@ -23,6 +24,7 @@
       <module name="elasticsearch-demo" options="-parameters" />
       <module name="jmyp-web-auth-common" options="-parameters" />
       <module name="jmyp-web-auth-service" options="-parameters" />
+      <module name="jmyp-web-cart" options="-parameters" />
       <module name="jmyp-web-common" options="-parameters" />
       <module name="jmyp-web-eureka-service" options="-parameters" />
       <module name="jmyp-web-gateway" options="-parameters" />

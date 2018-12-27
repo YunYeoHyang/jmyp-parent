@@ -23,6 +23,8 @@ zuul:
     auth-service: /auth-service/**
     search-service: /search-service/**
     #seller-service: /seller/**
+    cart-service: /cart/**
+  sensitive-headers: Cookie,Set-Cookie
 ribbon:
   ConnectTimeout: 100
   ReadTimeout: 600
