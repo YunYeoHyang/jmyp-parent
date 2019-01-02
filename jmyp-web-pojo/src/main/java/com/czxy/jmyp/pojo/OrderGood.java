@@ -6,29 +6,36 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Table(name = "tb_order_good")
-public class OrderGood {
+public class OrderGood implements Serializable{
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
-  private long id;
+  private Integer id;
 
   @Column(name = "sn")
-  private long sn;
+  private String sn;
+
+  @Transient
+  private Order order;
 
   @Column(name = "spu_id")
-  private long spuId;
+  private Integer spuId;
 
   @Column(name = "sku_id")
-  private long skuId;
+  private Integer skuId;
+
+  @Transient
+  private Sku sku;
 
   @Column(name = "number")
-  private long number;
+  private Integer number;
 
   @Column(name = "spec_list")
   private String specList;
@@ -37,7 +44,7 @@ public class OrderGood {
   private String skuName;
 
   @Column(name = "url")
-  private String url;
+  private String logo;
 
   @Column(name = "price")
   private double price;

@@ -13,6 +13,7 @@
         <module name="jmyp-web-common" />
         <module name="jmyp-web-eureka-service" />
         <module name="jmyp-web-gateway" />
+        <module name="jmyp-web-order" />
         <module name="jmyp-web-pojo" />
         <module name="jmyp-web-search" />
         <module name="jmyp-web-service" />
@@ -28,6 +29,7 @@
       <module name="jmyp-web-common" options="-parameters" />
       <module name="jmyp-web-eureka-service" options="-parameters" />
       <module name="jmyp-web-gateway" options="-parameters" />
+      <module name="jmyp-web-order" options="-parameters" />
       <module name="jmyp-web-pojo" options="-parameters" />
       <module name="jmyp-web-search" options="-parameters" />
       <module name="jmyp-web-service" options="-parameters" />

@@ -64,11 +64,12 @@ public class CartService {
         CartItem cartItem = new CartItem();
 
         cartItem.setSkuid(sku.getSkuid());
+        cartItem.setSpuid( sku.getSpuid() );
         cartItem.setMidlogo(sku.getLogo().get("midlogo"));
         cartItem.setPrice(sku.getPrice());
         cartItem.setGoodsName(sku.getGoodsName());
         cartItem.setSpecInfo(JSON.toJSONString(sku.getSpecInfo()));
-        cartItem.setChecked("true");
+        cartItem.setChecked(true);
         cartItem.setCount(cartRequest.getCount());
 
         // 4 将商品添加到购物车
@@ -94,33 +95,46 @@ public class CartService {
 
     /**
      * 更新购物车数据
-     * @param skuid
-     * @param count
-     * @param checked
-     * @param req
+     * @param userInfo
+     * @param cartRequest
      */
-    public void updateNum(Integer skuid, Integer count, String checked, HttpServletRequest req) {
-        // 获取登录用户
-        String token = req.getHeader("authorization");
+    public void updateCart(UserInfo userInfo , CartRequest cartRequest) {
 
-        UserInfo userInfo = null;
-        try {
-            userInfo = JwtUtils.getInfoFromToken(token, jwtProperties.getPublicKey());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String key = userInfo.getId().toString();
+        String key = "cart" + userInfo.getId();
         BoundHashOperations<String, Object, Object> hashOps = this.redisTemplate.boundHashOps(key);
-        // 获取购物车
-        String json = hashOps.get(skuid.toString()).toString();
 
-        System.out.println(json);
-        CartItem cart = JSON.parseObject(json, CartItem.class);
-        cart.setCount(count);
-        cart.setChecked(checked);
+        // 获取购物车
+        String cartJsonStr = this.redisTemplate.opsForValue().get(key);
+        System.out.println(cartJsonStr);
+        Cart cart = JSON.parseObject(cartJsonStr, Cart.class);
+
+        //更新数据
+        cart.updateCart(cartRequest.getSkuid() , cartRequest.getCount() , cartRequest.getChecked());
+
         // 写入购物车
-        hashOps.put(skuid.toString(), JSON.toJSONString(cart));
+        redisTemplate.opsForValue().set(key, JSON.toJSONString(cart));
     }
 
+    /**
+     * 删除
+     * @param userInfo
+     * @param skuid
+     */
+    public void deleteCart(UserInfo userInfo, Integer skuid) {
+        //1 获得购物车
+        String key = "cart" + userInfo.getId();
+        String cartStr = redisTemplate.opsForValue().get(key);
+        // 处理是否有购物车，没有创建，有转换(jsonStr --> java对象 )
+        Cart cart = JSON.parseObject( cartStr , Cart.class);
+        if(cart == null) {
+            throw new RuntimeException("购物车不存在");
+        }
+
+        //2 更新
+        cart.deleteCart(skuid);
+
+        //3 保存购物车
+        redisTemplate.opsForValue().set( key , JSON.toJSONString(cart) );
+    }
 
 }

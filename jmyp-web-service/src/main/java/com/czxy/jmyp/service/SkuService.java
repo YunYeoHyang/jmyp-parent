@@ -209,4 +209,15 @@ public class SkuService {
          */
         return skuResult;
     }
+
+    /**
+     * 更新库存数量
+     * @param skuid
+     * @param count
+     */
+    public void updateSkuNum(Integer skuid, Integer count) {
+        Sku sku = skuMapper.selectByPrimaryKey(skuid);
+        sku.setStock( sku.getStock() - count);
+        skuMapper.updateByPrimaryKey( sku );
+    }
 }

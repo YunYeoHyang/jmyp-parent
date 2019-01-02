@@ -23,6 +23,15 @@ the sixth pushing , fix the last problem that the product comments can not work 
 have in SHOP database . So in the future ,should add this field in SHOP.
 
  # 2018.12.27 #
- the seventh puthing , fix a little bug , that the 'token' field add "" , add a new model -- jmyp_web_cart ,
+ the seventh pushing , fix a little bug , that the 'token' field add "" , add a new model -- jmyp_web_cart ,
  add some new function -- searching cart after login in and adding cart. With a bug -- edit product's count.
  fix on next update.
+ 
+  # 2018.12.29 #
+  the 8th pushing , fix the last bug and add two function , one of editing cart , and another is deleting
+  cart.
+  
+  # 2019.01.02 #
+  the 9th pushing , add a new model - jmyp_web_order . With two function , like showing all of the address
+  of user , and the another is adding order , return "payFor" page.
+   

@@ -71,16 +71,48 @@ public class CartController {
 
     /**
      * 更新购物车
-     * @param skuid
-     * @param count
-     * @param checked
+     * @param cartRequest
      * @return
      */
-    @PutMapping("/{skuid}")
-    public ResponseEntity<Object> updateNum(@PathVariable("skuid") Integer skuid,
-                                            @RequestParam("count")Integer count,@RequestParam("checked")String checked) {
-        this.cartService.updateNum(skuid, count,checked, req);
+    @PutMapping
+    public ResponseEntity<Object> updateNum(@RequestBody CartRequest cartRequest) {
+        // 获取登录用户
+        String token = req.getHeader("authorization");
+
+        UserInfo userInfo;
+        try {
+            userInfo = JwtUtils.getInfoFromToken(token, jwtProperties.getPublicKey());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(new BaseResult(0 , "token无效"));
+        }
+        this.cartService.updateCart( userInfo, cartRequest);
         return ResponseEntity.ok(new BaseResult(0 , "成功"));
     }
 
+    /**
+     * 删除
+     * @param skuid
+     * @return
+     */
+    @DeleteMapping("/{skuid}")
+    public ResponseEntity<BaseResult> deleteCart(@PathVariable("skuid") Integer skuid) {
+
+        //1校验token
+        UserInfo userInfo;
+        try {
+            String token = req.getHeader("Authorization");
+            userInfo = JwtUtils.getInfoFromToken(token, jwtProperties.getPublicKey());
+        } catch (Exception e) {
+            return ResponseEntity.ok( new BaseResult(1 , "失败，没有登录") );
+        }
+
+        try {
+            this.cartService.deleteCart(userInfo ,skuid);
+
+            return ResponseEntity.ok( new BaseResult( 0 , "成功"));
+        } catch (Exception e) {
+            return ResponseEntity.ok( new BaseResult(1 , e.getMessage()) );
+        }
+    }
 }
