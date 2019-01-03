@@ -35,3 +35,6 @@ have in SHOP database . So in the future ,should add this field in SHOP.
   the 9th pushing , add a new model - jmyp_web_order . With two function , like showing all of the address
   of user , and the another is adding order , return "payFor" page.
    
+   # 2019.01.02 #
+   the 10th pushing , add a new function , now you can pay for goods with WeChatPay and also get
+   your payInformation ，check your payStatus.
