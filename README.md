@@ -5,10 +5,10 @@
 start on Oct.20/2018 ,  init on Dec.14/2018 , 'register' and 'login' have finished.
 
 # 2018.12.18 #
-this seconds pushing , add some function like showing brand , news. Created some JavaBeans.
+this second pushing , add some function like showing brand , news. Created some JavaBeans.
 
 # 2018.12.19 #
-this third time , update for new model -- elasticsearch_demo , for testing search service.
+this third pushing , update for new model -- elasticsearch_demo , for testing search service.
 
 # 2018.12.21 #
 the fourth pushing , Edit a model -- jmyp_web_search , create and init ElasticSearchRepository ,
